@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "2910d511-d6d8-401e-87fd-e2fc1954485f",
+		"name": "BCI excercise",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16027605",
+		"_collection_link": "https://orange-meteor-368700.postman.co/workspace/GL~b29cf027-624f-48d2-a7fb-a8bd8d3d8053/collection/16027605-2910d511-d6d8-401e-87fd-e2fc1954485f?action=share&source=collection_link&creator=16027605"
+	},
+	"item": [
+		{
+			"name": "authenticate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"BicTest\",\r\n    \"password\":\"bic\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modify",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCaWNUZXN0IiwiZXhwIjoxNzA5MjI5MDkxLCJpYXQiOjE3MDkyMjU0OTF9.Czz3XSCbyh5krouUMjQxNUz9r6Fop6NMy7tAuy0Ij3M6FR-Kt92oIA7ZgzrvtkQMsXzfHSFq8fA5u30BXuiriQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"BicTest\",\r\n  \"email\": \"eeee@dom.cl\",\r\n  \"password\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"BicTest\",\r\n  \"email\": \"bictest@domain.cl\",\r\n  \"password\": \"bic\",\r\n  \"phones\": [\r\n    {\r\n      \"number\": \"11223344\",\r\n      \"cityCode\": \"11\",\r\n      \"countryCode\": \"54\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user by token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCaWNUZXN0IiwiZXhwIjoxNzA5MjMzMTE1LCJpYXQiOjE3MDkyMjk1MTV9.bE3B7XgiwzPDvCbDvckkUTU2G2AmtYyn1HtjFiaYc7122SNVkoeHQLWfxIqhXsN2Traeca2EUssd2lcQ_nMVdA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteByToken",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCaWNUZXN0IiwiZXhwIjoxNzA5MjMzMTE1LCJpYXQiOjE3MDkyMjk1MTV9.bE3B7XgiwzPDvCbDvckkUTU2G2AmtYyn1HtjFiaYc7122SNVkoeHQLWfxIqhXsN2Traeca2EUssd2lcQ_nMVdA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

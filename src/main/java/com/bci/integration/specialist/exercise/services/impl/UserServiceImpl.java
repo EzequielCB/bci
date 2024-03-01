@@ -207,7 +207,7 @@ public class UserServiceImpl implements UserService {
   private Users saveUser(RegisterUserRequest registerUserRequest) {
     try {
       Users user = Users.builder()
-          .uuid(UUIDGenerator.generateType5UUID(registerUserRequest.getName()))
+          .uuid(UUIDGenerator.generateType5UUID(registerUserRequest.getEmail()))
           .token(jwtTokenUtil.generateNewUserToken(registerUserRequest.getName()))
           .createdAt(LocalDateTime.now())
           .name(registerUserRequest.getName())

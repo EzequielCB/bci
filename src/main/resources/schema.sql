@@ -19,8 +19,6 @@ ALTER TABLE users ADD CONSTRAINT uc_users_email UNIQUE (email);
 
 ALTER TABLE users ADD CONSTRAINT uc_users_name UNIQUE (name);
 
-ALTER TABLE users ADD CONSTRAINT uc_users_password UNIQUE (password);
-
 ALTER TABLE users ADD CONSTRAINT uc_users_uuid UNIQUE (uuid);
 
 
@@ -32,10 +30,6 @@ CREATE TABLE phone (
    user_id INT,
    CONSTRAINT pk_phone PRIMARY KEY (id)
 );
-
-ALTER TABLE phone ADD CONSTRAINT uc_phone_city_code UNIQUE (city_code);
-
-ALTER TABLE phone ADD CONSTRAINT uc_phone_country_code UNIQUE (country_code);
 
 ALTER TABLE phone ADD CONSTRAINT uc_phone_number UNIQUE (number);
 

@@ -23,15 +23,12 @@ public class UserDto {
 
   private String email;
 
-  private String password;
-
   private List<PhoneDto> phones;
 
   public static UserDto userConverter(Users user, List<PhoneDto> phoneDtos) {
     return UserDto.builder()
         .email(user.getEmail())
         .name(user.getName())
-        .password(user.getPassword())
         .phones(phoneDtos)
         .uuid(user.getUuid())
         .build();

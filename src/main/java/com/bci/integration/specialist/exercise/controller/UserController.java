@@ -45,7 +45,7 @@ public class UserController {
 
       @ApiResponse(responseCode = "500", description = "Unexpected Error", content = @Content(schema = @Schema(implementation = GeneralBciResponse.class))) })
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public GeneralBciResponse registerUser(@RequestBody RegisterUserRequest registerUserRequest) {
+  public ResponseEntity<GeneralBciResponse> registerUser(@RequestBody RegisterUserRequest registerUserRequest) {
     return this.userService.registerUser(registerUserRequest);
   }
 
@@ -72,7 +72,8 @@ public class UserController {
 
       @ApiResponse(responseCode = "500", description = "Unexpected Error", content = @Content(schema = @Schema(implementation = ResponseEntity.class))) })
   @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public GeneralBciResponse modifyUser(@RequestHeader("Authorization") String token, @RequestBody UserModifyDto dto) {
+  public ResponseEntity<GeneralBciResponse> modifyUser(@RequestHeader("Authorization") String token,
+      @RequestBody UserModifyDto dto) {
     return this.userService.modifyUserEmailOrPassword(dto, token);
   }
 
@@ -85,11 +86,11 @@ public class UserController {
 
       @ApiResponse(responseCode = "500", description = "Database error", content = @Content(schema = @Schema(implementation = ResponseEntity.class))) })
   @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public GeneralBciResponse getUserByToken(@RequestHeader("Authorization") String token) {
+  public ResponseEntity<GeneralBciResponse> getUserByToken(@RequestHeader("Authorization") String token) {
     return this.userService.getUserByToken(token);
   }
 
-  @Operation(summary = "Obtiene un usuario por name", tags = {
+  @Operation(summary = "Obtiene un usuario por token", tags = {
       "user" })
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(schema = @Schema(implementation = ResponseEntity.class))),

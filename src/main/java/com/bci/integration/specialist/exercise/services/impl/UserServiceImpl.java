@@ -43,18 +43,18 @@ public class UserServiceImpl implements UserService {
     this.jwtTokenUtil = jwtTokenUtil;
   }
 
-  @Override public GeneralBciResponse registerUser(RegisterUserRequest registerUserRequest) {
+  @Override public ResponseEntity<GeneralBciResponse> registerUser(RegisterUserRequest registerUserRequest) {
 
-    log.info("Se ejecuta /user/register con el request: {}", registerUserRequest);
+    log.info("Se ejecuta /user/register con el user: {}", registerUserRequest);
 
     //se valida el email
     if (!this.validateEmail(registerUserRequest.getEmail())) {
 
       log.error("El correo ingresado no coincide con la validacion hecha con el regex: {}", this.emailRegex);
 
-      return GeneralBciResponse.builder().code(HttpStatus.BAD_REQUEST.value())
+      return new ResponseEntity<>(GeneralBciResponse.builder()
           .message("El correo posee un formato incorrecto")
-          .build();
+          .build(), HttpStatus.BAD_REQUEST);
     }
 
     log.info("Comienza el proceso de registro.");
@@ -71,16 +71,17 @@ public class UserServiceImpl implements UserService {
 
       log.error("Se encontro un usuario registrado con el email: {}", registerUserRequest.getEmail());
 
-      return GeneralBciResponse.builder().code(HttpStatus.CONFLICT.value())
-          .message("El correo ya esta registrado").build();
+      return new ResponseEntity<>(GeneralBciResponse.builder().
+          message("El correo ya esta registrado")
+          .build(), HttpStatus.CONFLICT);
 
     } else {
 
       log.info("Se creara un nuevo registro en la base. ");
       Users user = this.saveUser(registerUserRequest);
+
       if (Objects.nonNull(user)) {
-        return GeneralBciResponse.<RegisterUserResponse>builder()
-            .code(HttpStatus.OK.value())
+        return ResponseEntity.ok(GeneralBciResponse.<RegisterUserResponse>builder()
             .data(RegisterUserResponse.builder()
                 .token(user.getToken())
                 .userId(user.getUuid())
@@ -90,37 +91,37 @@ public class UserServiceImpl implements UserService {
                 .isActive(user.getIsActive())
                 .user(UserDto.userConverter(user, registerUserRequest.getPhones()))
                 .build())
-            .build();
+            .build());
       } else
-        return GeneralBciResponse.builder()
-            .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+        return new ResponseEntity<>(GeneralBciResponse.builder()
             .message("Hubo un error en la base de datos, reintente nuevamente.")
-            .build();
+            .build(),
+            HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
   }
 
-  private GeneralBciResponse databaseError(Exception e) {
+  private ResponseEntity<GeneralBciResponse> databaseError(Exception e) {
     log.error("Se capturo la siguiente excepcion: {}", e);
-    return GeneralBciResponse.builder()
-        .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+    return new ResponseEntity<>(GeneralBciResponse.builder()
         .message("Hubo un error en la base de datos, reintente nuevamente.")
-        .build();
+        .build(), HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
-  @Override public GeneralBciResponse modifyUserEmailOrPassword(UserModifyDto dto, String token) {
+  @Override public ResponseEntity<GeneralBciResponse> modifyUserEmailOrPassword(UserModifyDto dto, String token) {
     try {
       if (!this.validateEmail(dto.getEmail())) {
 
         log.error("El correo ingresado no coincide con la validacion hecha con el regex: {}", this.emailRegex);
 
-        return GeneralBciResponse.builder().code(HttpStatus.BAD_REQUEST.value())
+        return new ResponseEntity<>(GeneralBciResponse.builder()
             .message("El correo posee un formato incorrecto.")
-            .build();
+            .build(),
+            HttpStatus.BAD_REQUEST);
       }
       Optional<Users> optionalUsers = this.userRepository.findByToken(token.substring(7));
       if (optionalUsers.isPresent()) {
-        log.info("Se procede a modificar el user: {}", optionalUsers.get());
+        log.info("Se procede a modificar el user: {}", optionalUsers.get().getName());
         Users user = optionalUsers.get();
         user.setPassword(this.checkNullability(dto.getPassword()) ? user.getPassword() : dto.getPassword());
         user.setEmail(this.checkNullability(dto.getEmail()) ? user.getEmail() : dto.getEmail());
@@ -128,17 +129,15 @@ public class UserServiceImpl implements UserService {
         user.setToken(token.substring(7));
         user.setLastLogin(LocalDateTime.now());
 
-        return GeneralBciResponse.builder()
-            .code(HttpStatus.OK.value())
+        return ResponseEntity.ok(GeneralBciResponse.builder()
             .message("Usuario modificado.")
             .data(this.userRepository.save(user))
-            .build();
+            .build());
 
       } else {
-        return GeneralBciResponse.builder()
-            .code(HttpStatus.BAD_REQUEST.value())
+        return new ResponseEntity<>(GeneralBciResponse.builder()
             .message("No se encontro al usuario")
-            .build();
+            .build(), HttpStatus.BAD_REQUEST);
       }
 
     } catch (Exception e) {
@@ -166,21 +165,19 @@ public class UserServiceImpl implements UserService {
     }
   }
 
-  @Override public GeneralBciResponse getUserByToken(String token) {
+  @Override public ResponseEntity<GeneralBciResponse> getUserByToken(String token) {
     try {
       log.info("Se busca al usuario con el token: {}", token);
       Optional<Users> optionalUsers = this.userRepository.findByToken(token.substring(7));
       if (optionalUsers.isPresent()) {
-        return GeneralBciResponse.builder()
+        return ResponseEntity.ok(GeneralBciResponse.builder()
             .data(optionalUsers.get())
             .message("Usuario encontrado.")
-            .code(HttpStatus.OK.value())
-            .build();
+            .build());
       } else {
-        return GeneralBciResponse.builder()
-            .code(HttpStatus.NOT_FOUND.value())
+        return new ResponseEntity<>(GeneralBciResponse.builder()
             .message("El usuario no fue encontrado.")
-            .build();
+            .build(), HttpStatus.NOT_FOUND);
       }
     } catch (Exception e) {
       return databaseError(e);

@@ -85,7 +85,7 @@ public class UserController {
       @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(schema = @Schema(implementation = ResponseEntity.class))),
 
       @ApiResponse(responseCode = "500", description = "Database error", content = @Content(schema = @Schema(implementation = ResponseEntity.class))) })
-  @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<GeneralBciResponse> getUserByToken(@RequestHeader("Authorization") String token) {
     return this.userService.getUserByToken(token);
   }

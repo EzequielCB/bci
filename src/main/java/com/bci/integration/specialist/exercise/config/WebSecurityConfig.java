@@ -61,10 +61,10 @@ public class WebSecurityConfig {
     sharedsecurityFilterChain(httpSecurity);
     httpSecurity
         .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers(HttpMethod.POST, USER).permitAll()
-            .requestMatchers(HttpMethod.POST, "/user/authenticate").permitAll()
-            .requestMatchers("/h2-console/**").permitAll()
-            .requestMatchers("/swagger-ui/**").permitAll()
+            .antMatchers(HttpMethod.POST, USER).permitAll()
+            .antMatchers(HttpMethod.POST, "/user/authenticate").permitAll()
+            .antMatchers("/h2-console/**").permitAll()
+            .antMatchers("/swagger-ui/**").permitAll()
             .anyRequest().permitAll()
         );
 
@@ -76,9 +76,9 @@ public class WebSecurityConfig {
     sharedsecurityFilterChain(httpSecurity);
     httpSecurity
         .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers(HttpMethod.GET, USER).authenticated()
-            .requestMatchers(HttpMethod.PUT, USER).authenticated()
-            .requestMatchers(HttpMethod.DELETE, USER).authenticated()
+            .antMatchers(HttpMethod.GET, USER).authenticated()
+            .antMatchers(HttpMethod.PUT, USER).authenticated()
+            .antMatchers(HttpMethod.DELETE, USER).authenticated()
         )
         .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 

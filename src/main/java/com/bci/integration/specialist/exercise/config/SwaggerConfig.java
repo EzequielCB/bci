@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfig {
 
   @Bean
-  public OpenAPI springShopOpenAPI() {
+  public OpenAPI swagger() {
     return new OpenAPI()
         .info(new Info().title("Ejercicio de especialista en integracion")
             .description("API Documentation")

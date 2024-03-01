@@ -167,3 +167,4 @@ Se busca el usuario con el token en el requestHeader y se hace un borrado logico
 
 Lo primero que se debe hacer es ejecutar el endpoint POST /user que creara un nuevo usuario y nos lo devolvera. Asi habilitandonos a modificarlo, obtenerlo y borrarlo logicamente. Tambien podremos loguearlo obteniendo un nuevo token.
 
+Tambien dentro de la carpeta resources adjunte la collection de postman para realizar las pruebas facilmente.

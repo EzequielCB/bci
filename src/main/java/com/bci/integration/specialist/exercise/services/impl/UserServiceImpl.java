@@ -64,9 +64,9 @@ public class UserServiceImpl implements UserService {
       userOptional = this.userRepository.findByEmail(registerUserRequest.getEmail());
 
     } catch (Exception e) {
-      log.error("Se capturo la siguiente excepcion: {}", e);
-      userOptional = Optional.empty();
+      return databaseError(e);
     }
+
     if (userOptional.isPresent()) {
 
       log.error("Se encontro un usuario registrado con el email: {}", registerUserRequest.getEmail());
@@ -110,7 +110,8 @@ public class UserServiceImpl implements UserService {
 
   @Override public ResponseEntity<GeneralBciResponse> modifyUserEmailOrPassword(UserModifyDto dto, String token) {
     try {
-      if (!this.validateEmail(dto.getEmail())) {
+      log.info("Comienza la ejecucion del ");
+      if (Objects.nonNull(dto.getEmail()) && !this.validateEmail(dto.getEmail())) {
 
         log.error("El correo ingresado no coincide con la validacion hecha con el regex: {}", this.emailRegex);
 
@@ -150,9 +151,9 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void updateUserToken(String name, String token) {
+  public void updateUserToken(String email, String token) {
     try {
-      Optional<Users> optionalUsers = this.userRepository.findByName(name);
+      Optional<Users> optionalUsers = this.userRepository.findByEmail(email);
       if (optionalUsers.isPresent()) {
         Users users = optionalUsers.get();
         users.setUpdatedAt(LocalDateTime.now());
@@ -167,7 +168,7 @@ public class UserServiceImpl implements UserService {
 
   @Override public ResponseEntity<GeneralBciResponse> getUserByToken(String token) {
     try {
-      log.info("Se busca al usuario con el token: {}", token);
+      log.info("Se busca al usuario con el token del requestHeader");
       Optional<Users> optionalUsers = this.userRepository.findByToken(token.substring(7));
       if (optionalUsers.isPresent()) {
         return ResponseEntity.ok(GeneralBciResponse.builder()
@@ -186,7 +187,7 @@ public class UserServiceImpl implements UserService {
 
   @Override public ResponseEntity<Void> logicDelete(String token) {
     try {
-      log.info("Se busca al usuario con el token: {}", token);
+      log.info("Se busca al usuario a borrar con el token del requestHeader");
       Optional<Users> optionalUsers = this.userRepository.findByToken(token.substring(7));
       if (optionalUsers.isPresent()) {
         Users users = optionalUsers.get();

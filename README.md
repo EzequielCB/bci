@@ -33,19 +33,16 @@ Crea un usuario y guarda su token generado en la base
 
 ```JSON
 {
-  "code": 200,
   "data": {
     "userId": "342bece1-0a8d-585c-8915-3114fbc49acd",
-    "createdAt": "2024-02-29T10:32:03.0486677",
+    "createdAt": "2024-03-01T16:11:38.7459109",
     "modifiedAt": null,
-    "lastLogin": "2024-02-29T10:32:03.0486677",
-    "token": null,
+    "lastLogin": "2024-03-01T16:11:38.7459109",
+    "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCaWNUZXN0IiwiZXhwIjoxNzA5MzIzODk4LCJpYXQiOjE3MDkzMjAyOTh9.awBqio9SjVh-dW8GN8htK8ShUHFDEDtmhBgvG3gU0hjm7R-NLXNcGIqs81eNAvTu6T0aW1RZ2nagAVmHhjN1Rw",
     "user": {
       "uuid": "342bece1-0a8d-585c-8915-3114fbc49acd",
-      "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCaWNUZXN0IiwiZXhwIjoxNzA5MjE3MTIzLCJpYXQiOjE3MDkyMTM1MjN9.X-HfCjpswcIo-i671mkq22EQjTBoyQw8ntGFNwUqSHPMv0KRIygETy8795niHuNubB2Aq4OgNVattaj_ioqkMg",
       "name": "BicTest",
       "email": "bictest@domain.cl",
-      "password": "bic",
       "phones": [
         {
           "number": "11223344",
@@ -71,7 +68,7 @@ Loguea al usuario y guarda su nuevo token generado en la base y lo retorna
 
 ```JSON
 {
-  "username": "BicTest",
+  "email": "bictest@domain.cl",
   "password": "bic"
 }
 ```
@@ -90,14 +87,13 @@ Loguea al usuario y guarda su nuevo token generado en la base y lo retorna
   PUT /user
 ```
 
-Crea un usuario y guarda su token generado en la base . Se necesita ser autenticado por requestHeader
+Modifuca un usuario . Se necesita ser autenticado con token por requestHeader.
 
 ##### Ejemplo de request:
 
 ```JSON
 {
-  "name": "BicTest",
-  "email": "eeee@dom.cl",
+  "email": "anotherEmail@domain.cl",
   "password": "bicpasss"
 }
 ```
@@ -106,15 +102,14 @@ Crea un usuario y guarda su token generado en la base . Se necesita ser autentic
 
 ```JSON
 {
-  "code": 200,
   "message": "Usuario modificado.",
   "data": {
     "id": 1,
     "uuid": "342bece1-0a8d-585c-8915-3114fbc49acd",
-    "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCaWNUZXN0IiwiZXhwIjoxNzA5MjMwNTQxLCJpYXQiOjE3MDkyMjY5NDF9.TxpOg10y_tyHpbB_6WI3cN7--sTRHYFGBX_kQTavv7BIcGJx_h-5osUqYQAdskIJJ-ZITuSEZkH85awLPunbZA",
+    "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiaWN0ZXN0QGRvbWFpbi5jbCIsImV4cCI6MTcwOTMyMzk3NywiaWF0IjoxNzA5MzIwMzc3fQ.egGExdNWClhVzU052wabm8j8dk3csg8AvBw9uEH-CYZJeVppKhO0IR_Pybn0gtfzUephUb1fE_1w4pBIkcTfFw",
     "name": "BicTest",
-    "email": "eeee@dom.cl",
-    "password": "",
+    "email": "anotherEmail@domain.cl",
+    "password": "bicpasss",
     "phones": [
       {
         "id": 1,
@@ -123,12 +118,12 @@ Crea un usuario y guarda su token generado en la base . Se necesita ser autentic
         "countryCode": "54"
       }
     ],
-    "createdAt": "2024-02-29T14:05:53.747808",
-    "updatedAt": "2024-02-29T14:16:10.9103256",
-    "lastLogin": "2024-02-29T14:16:10.9103256",
+    "createdAt": "2024-03-01T16:11:38.745911",
+    "updatedAt": "2024-03-01T16:16:27.6170912",
+    "lastLogin": "2024-03-01T16:16:27.6170912",
     "isActive": true
   }
-}
+} 
 ```
 
 #### GetByUserToken
@@ -137,21 +132,20 @@ Crea un usuario y guarda su token generado en la base . Se necesita ser autentic
   GET /user
 ```
 
-Se busca el usuario con el token en el requestHeader y se lo devuelve. Se necesita ser autenticado por requestHeader
+Se busca el usuario con el token en el requestHeader y retornandolo.
 
 ##### Ejemplo de response:
 
 ```JSON
 {
-  "code": 200,
   "message": "Usuario encontrado.",
   "data": {
     "id": 1,
     "uuid": "342bece1-0a8d-585c-8915-3114fbc49acd",
-    "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCaWNUZXN0IiwiZXhwIjoxNzA5MjMzMTE1LCJpYXQiOjE3MDkyMjk1MTV9.bE3B7XgiwzPDvCbDvckkUTU2G2AmtYyn1HtjFiaYc7122SNVkoeHQLWfxIqhXsN2Traeca2EUssd2lcQ_nMVdA",
+    "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiaWN0ZXN0QGRvbWFpbi5jbCIsImV4cCI6MTcwOTMyMzk3NywiaWF0IjoxNzA5MzIwMzc3fQ.egGExdNWClhVzU052wabm8j8dk3csg8AvBw9uEH-CYZJeVppKhO0IR_Pybn0gtfzUephUb1fE_1w4pBIkcTfFw",
     "name": "BicTest",
-    "email": "bictest@domain.cl",
-    "password": "bic",
+    "email": "anotherEmail@domain.cl",
+    "password": "bicpasss",
     "phones": [
       {
         "id": 1,
@@ -160,9 +154,9 @@ Se busca el usuario con el token en el requestHeader y se lo devuelve. Se necesi
         "countryCode": "54"
       }
     ],
-    "createdAt": "2024-02-29T14:58:06.874795",
-    "updatedAt": "2024-02-29T14:58:35.879987",
-    "lastLogin": "2024-02-29T14:58:35.740468",
+    "createdAt": "2024-03-01T16:11:38.745911",
+    "updatedAt": "2024-03-01T16:16:27.617091",
+    "lastLogin": "2024-03-01T16:16:27.617091",
     "isActive": true
   }
 }

@@ -12,7 +12,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserModifyDto {
-  private String name;
   private String email;
   private String password;
 }

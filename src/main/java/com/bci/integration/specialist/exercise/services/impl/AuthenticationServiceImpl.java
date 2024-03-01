@@ -39,7 +39,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
       final String token = jwtTokenUtil.generateToken(userDetails);
 
-      log.info("Se intenta loguear el username: {} con el password : {}", username, password);
+      log.info("Se intenta loguear el user: {}", username);
       authenticationManager.authenticate(
           new UsernamePasswordAuthenticationToken(username, password, new ArrayList<>()));
 

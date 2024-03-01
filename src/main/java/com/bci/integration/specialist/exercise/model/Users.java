@@ -42,7 +42,7 @@ public class Users {
 
   private String token;
 
-  @Column(name = "NAME", unique = true)
+  @Column(name = "NAME")
   @NotNull
   private String name;
 
@@ -50,7 +50,7 @@ public class Users {
   @NotNull
   private String email;
 
-  @Column(name = "PASSWORD", unique = true)
+  @Column(name = "PASSWORD")
   @NotNull
   private String password;
 

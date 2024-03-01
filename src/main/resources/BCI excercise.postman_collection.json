@@ -44,7 +44,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCaWNUZXN0IiwiZXhwIjoxNzA5MjI5MDkxLCJpYXQiOjE3MDkyMjU0OTF9.Czz3XSCbyh5krouUMjQxNUz9r6Fop6NMy7tAuy0Ij3M6FR-Kt92oIA7ZgzrvtkQMsXzfHSFq8fA5u30BXuiriQ",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiaWN0ZXN0QGRvbWFpbi5jbCIsImV4cCI6MTcwOTMyMzk3NywiaWF0IjoxNzA5MzIwMzc3fQ.egGExdNWClhVzU052wabm8j8dk3csg8AvBw9uEH-CYZJeVppKhO0IR_Pybn0gtfzUephUb1fE_1w4pBIkcTfFw",
 							"type": "string"
 						}
 					]
@@ -53,7 +53,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"BicTest\",\r\n  \"email\": \"eeee@dom.cl\",\r\n  \"password\": \"\"\r\n}",
+					"raw": "{\r\n  \"email\": \"anotherEmail@domain.cl\",\r\n  \"password\": \"bicpasss\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -110,7 +110,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCaWNUZXN0IiwiZXhwIjoxNzA5MjMzMTE1LCJpYXQiOjE3MDkyMjk1MTV9.bE3B7XgiwzPDvCbDvckkUTU2G2AmtYyn1HtjFiaYc7122SNVkoeHQLWfxIqhXsN2Traeca2EUssd2lcQ_nMVdA",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiaWN0ZXN0QGRvbWFpbi5jbCIsImV4cCI6MTcwOTMyMzk3NywiaWF0IjoxNzA5MzIwMzc3fQ.egGExdNWClhVzU052wabm8j8dk3csg8AvBw9uEH-CYZJeVppKhO0IR_Pybn0gtfzUephUb1fE_1w4pBIkcTfFw",
 							"type": "string"
 						}
 					]

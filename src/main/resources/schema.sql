@@ -17,8 +17,6 @@ CREATE TABLE users (
 
 ALTER TABLE users ADD CONSTRAINT uc_users_email UNIQUE (email);
 
-ALTER TABLE users ADD CONSTRAINT uc_users_name UNIQUE (name);
-
 ALTER TABLE users ADD CONSTRAINT uc_users_uuid UNIQUE (uuid);
 
 

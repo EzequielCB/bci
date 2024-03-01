@@ -49,21 +49,19 @@ public class UserController {
     return this.userService.registerUser(registerUserRequest);
   }
 
-  @Operation(summary = "Loguea a un usuario en el sistema", tags = {
+  @Operation(summary = "Loguea a un usuario con su email y contraseña en el sistema", tags = {
       "user" })
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(schema = @Schema(implementation = ResponseEntity.class))),
 
-      @ApiResponse(responseCode = "403", description = "Bad request", content = @Content(schema = @Schema(implementation = ResponseEntity.class))),
-
-      @ApiResponse(responseCode = "500", description = "Unexpected Error", content = @Content(schema = @Schema(implementation = ResponseEntity.class))) })
+      @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content(schema = @Schema(implementation = ResponseEntity.class))) })
   @PostMapping(value = "/authenticate", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<JwtResponse> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) {
     return ResponseEntity.ok(
-        authenticationService.authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+        authenticationService.authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
   }
 
-  @Operation(summary = "Modifica un usuario", tags = {
+  @Operation(summary = "Modifica un usuario obteniendolo con el token", tags = {
       "user" })
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(schema = @Schema(implementation = GeneralBciResponse.class))),
@@ -90,7 +88,7 @@ public class UserController {
     return this.userService.getUserByToken(token);
   }
 
-  @Operation(summary = "Obtiene un usuario por token", tags = {
+  @Operation(summary = "Obtiene un usuario por token y realiza una eliminacion logica", tags = {
       "user" })
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(schema = @Schema(implementation = ResponseEntity.class))),

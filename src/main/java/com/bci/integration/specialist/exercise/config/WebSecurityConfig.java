@@ -28,11 +28,14 @@ public class WebSecurityConfig {
   public static final String USER = "/user";
   private final UserDetailsService userDetailsService;
   private final JwtRequestFilter jwtRequestFilter;
+  private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
   public WebSecurityConfig(
-      UserDetailsService userDetailsService, JwtRequestFilter jwtRequestFilter) {
+      UserDetailsService userDetailsService, JwtRequestFilter jwtRequestFilter,
+      JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint1) {
     this.userDetailsService = userDetailsService;
     this.jwtRequestFilter = jwtRequestFilter;
+    this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint1;
   }
 
   @Autowired
@@ -80,7 +83,8 @@ public class WebSecurityConfig {
             .antMatchers(HttpMethod.PUT, USER).authenticated()
             .antMatchers(HttpMethod.DELETE, USER).authenticated()
         )
-        .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class).exceptionHandling()
+        .authenticationEntryPoint(jwtAuthenticationEntryPoint);
 
     return httpSecurity.build();
   }

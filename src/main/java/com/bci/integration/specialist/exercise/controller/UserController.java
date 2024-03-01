@@ -66,11 +66,11 @@ public class UserController {
   @Operation(summary = "Modifica un usuario", tags = {
       "user" })
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(schema = @Schema(implementation = ResponseEntity.class))),
+      @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(schema = @Schema(implementation = GeneralBciResponse.class))),
 
-      @ApiResponse(responseCode = "403", description = "Bad request", content = @Content(schema = @Schema(implementation = ResponseEntity.class))),
+      @ApiResponse(responseCode = "403", description = "Bad request", content = @Content(schema = @Schema(implementation = GeneralBciResponse.class))),
 
-      @ApiResponse(responseCode = "500", description = "Unexpected Error", content = @Content(schema = @Schema(implementation = ResponseEntity.class))) })
+      @ApiResponse(responseCode = "500", description = "Unexpected Error", content = @Content(schema = @Schema(implementation = GeneralBciResponse.class))) })
   @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<GeneralBciResponse> modifyUser(@RequestHeader("Authorization") String token,
       @RequestBody UserModifyDto dto) {
@@ -80,11 +80,11 @@ public class UserController {
   @Operation(summary = "Obtiene un usuario por name", tags = {
       "user" })
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(schema = @Schema(implementation = ResponseEntity.class))),
+      @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(schema = @Schema(implementation = GeneralBciResponse.class))),
 
-      @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(schema = @Schema(implementation = ResponseEntity.class))),
+      @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(schema = @Schema(implementation = GeneralBciResponse.class))),
 
-      @ApiResponse(responseCode = "500", description = "Database error", content = @Content(schema = @Schema(implementation = ResponseEntity.class))) })
+      @ApiResponse(responseCode = "500", description = "Database error", content = @Content(schema = @Schema(implementation = GeneralBciResponse.class))) })
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<GeneralBciResponse> getUserByToken(@RequestHeader("Authorization") String token) {
     return this.userService.getUserByToken(token);

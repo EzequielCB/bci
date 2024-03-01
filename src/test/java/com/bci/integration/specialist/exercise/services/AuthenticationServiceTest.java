@@ -1,7 +1,6 @@
 package com.bci.integration.specialist.exercise.services;
 
 import com.bci.integration.specialist.exercise.config.JwtTokenUtil;
-import com.bci.integration.specialist.exercise.controller.response.JwtResponse;
 import com.bci.integration.specialist.exercise.services.impl.AuthenticationServiceImpl;
 import com.bci.integration.specialist.exercise.services.impl.JwtUserDetailsServiceImpl;
 import com.bci.integration.specialist.exercise.services.utils.TestUtils;
@@ -36,7 +35,6 @@ class AuthenticationServiceTest {
 
   @Test
   void whenAuthenticateThenOk() {
-    JwtResponse jwtResponse = new JwtResponse(TestUtils.TOKEN);
     when(this.userDetailsService.loadUserByUsername(any())).thenReturn(TestUtils.buildUserDetails());
     when(this.jwtTokenUtil.generateToken(any())).thenReturn(TestUtils.TOKEN);
     when(this.authenticationManager.authenticate(any())).thenReturn(TestUtils.buildAuthentication());
@@ -46,7 +44,6 @@ class AuthenticationServiceTest {
 
   @Test
   void whenAuthenticateThenDisabledExc() {
-    JwtResponse jwtResponse = new JwtResponse(TestUtils.TOKEN);
     when(this.userDetailsService.loadUserByUsername(any())).thenThrow(DisabledException.class);
     assertThrows(DisabledException.class,
         () -> this.authenticationService.authenticate("user", TestUtils.TOKEN).getJwtToken());
@@ -54,7 +51,6 @@ class AuthenticationServiceTest {
 
   @Test
   void whenAuthenticateThenBadCredencials() {
-    JwtResponse jwtResponse = new JwtResponse(TestUtils.TOKEN);
     when(this.userDetailsService.loadUserByUsername(any())).thenThrow(BadCredentialsException.class);
     assertThrows(BadCredentialsException.class,
         () -> this.authenticationService.authenticate("user", TestUtils.TOKEN).getJwtToken());
